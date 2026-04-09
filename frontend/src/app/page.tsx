@@ -12,9 +12,7 @@ interface User {
 }
 
 export default function Home() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-  const openaiApiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY || '';
-
+  const apiUrl = '/api';
   const [userInput, setUserInput] = useState('');
   const [users, setUsers] = useState<User[]>([]);
   const [newUser, setNewUser] = useState({ name: '', email: '' });
@@ -36,29 +34,8 @@ export default function Home() {
   const handleUserCreation = async (nlpInput: string) => {
     console.log('User input:', nlpInput);
     try {
-      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: `
-          You are performing an action based on user input. 
-          When user input includes create, you extract name and email from user input and return name:{name}, email:{email} to create a new user. 
-          When user input includes delete, you extract id from user input and return id:{id} to delete that user.
-          When user input includes update, you extract id, name and email from user input and return id:{id}, name:{name}, email:{email} to update that user.
-          ` },
-          { role: 'user', content: nlpInput }
-        ],
-        max_tokens: 150,
-        temperature: 0.7,
-        n: 1
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`
-        }
-      });
-      
-      const content = (response.data.choices[0].message.content as string)
-      console.log('OpenAI response:', content);
+      const content = nlpInput;
+      console.log('Content:', content);
 
       const createRegex = /name:\s*([^\n]+),\s*email:\s*([^\n]+)/i;
       const deleteRegex = /id:\s*(\d+)/i;
