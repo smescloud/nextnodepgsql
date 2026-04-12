@@ -15,14 +15,14 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`demo.tenant1.eu001.smescloud.com`) && PathPrefix(`/api`)
+    - match: Host(`nextnodepostgres-eu001.smescloud.com`) && PathPrefix(`/api`)
       kind: Rule
       middlewares:
         - name: ai-demo-strip-api
       services:
         - name: ai-demo-backend
           port: 4000
-    - match: Host(`demo.tenant1.eu001.smescloud.com`)
+    - match: Host(`nextnodepostgres-eu001.smescloud.com`)
       kind: Rule
       services:
         - name: ai-demo-frontend
