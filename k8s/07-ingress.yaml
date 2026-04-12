@@ -1,0 +1,31 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ai-demo-strip-api
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ai-demo
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`demo.tenant1.eu001.smescloud.com`) && PathPrefix(`/api`)
+      kind: Rule
+      middlewares:
+        - name: ai-demo-strip-api
+      services:
+        - name: ai-demo-backend
+          port: 4000
+    - match: Host(`demo.tenant1.eu001.smescloud.com`)
+      kind: Rule
+      services:
+        - name: ai-demo-frontend
+          port: 3000
+  tls:
+    secretName: ai-demo-tls
