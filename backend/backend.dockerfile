@@ -2,16 +2,16 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY prisma ./prisma
 
 RUN npx prisma generate
 
-COPY . .
+COPY index.js ./
 
 EXPOSE 4000
 
-CMD ["node", "index.js"]
+CMD ["npm", "run", "start:docker"]

@@ -24,6 +24,8 @@ spec:
               value: "3000"
             - name: HOSTNAME
               value: "0.0.0.0"
+            - name: BACKEND_URL
+              value: "http://ai-demo-backend:4000"
           readinessProbe:
             httpGet:
               path: /

@@ -1,34 +1,44 @@
-
 # AI-Next.js-Postgres-Node.js-Workflow
 
-> Perform CRUD Operations with AI Chat.
+> User CRUD application built with Next.js, Node.js, and Postgres.
 
-<br>
+This repo now runs as a standard CRUD stack:
 
-AI-powered CRUD Next.js app with Postgres Database, and Node.js Backend.
+- `frontend`: Next.js app with a hosted-safe `/api` proxy layer
+- `backend`: Express + Prisma API for `User` records
+- `db`: Postgres database
 
-<br>
+## Features
+
+- Create, list, update, and delete users from the browser
+- Backend validation and health checks
+- Docker Compose setup for local hosting
+- Kubernetes manifests with the frontend proxying requests to the backend service
 
 ## How to Run
 
-1. Set up your OpenAI API key:
-   - Add your OpenAI API key to the `.env.local` file in the frontend folder as 
-   ```
-   NEXT_PUBLIC_OPENAI_API_KEY=your_api_key_here
+1. Run the full stack with Docker Compose:
+   ```bash
+   docker compose up --build
    ```
 
-2. Run using Docker Compose:
-   - Run `docker compose up -d` to start the application. This command will set up the frontend, database, and backend containers.
+2. Open `http://localhost:3000`.
 
-   or
+3. Optional local development without Docker for the frontend:
+   - Start the backend on `http://localhost:4000`
+   - Add this to `frontend/.env.local`
+   ```bash
+   BACKEND_URL=http://localhost:4000
+   ```
+   - Start the frontend from the `frontend` folder
+   ```bash
+   npm run dev
+   ```
 
-3. Run frontend and containers locally:
-   - Navigate to the frontend folder and start the frontend locally.
+4. Optional local development for the backend:
+   - Set `DATABASE_URL`
+   - From the `backend` folder run
+   ```bash
+   npm run db:push
+   npm start
    ```
-    yarn dev
-    ```
-   - Run the database and backend containers.
-   ```
-    docker compose up db
-    docker compose up backend
-    ```
