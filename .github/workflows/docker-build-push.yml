@@ -28,17 +28,25 @@ jobs:
         include:
           - component: backend
             context: ./backend
-            dockerfile: ./backend.dockerfile
+            dockerfile: ./backend/backend.dockerfile
             image: smescloud/nextnodepgsql-backend
 
           - component: frontend
             context: ./frontend
-            dockerfile: ./frontend.dockerfile
+            dockerfile: ./frontend/frontend.dockerfile
             image: smescloud/nextnodepgsql-frontend
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Debug repository files
+        run: |
+          pwd
+          echo "Dockerfiles found:"
+          find . -iname "*dockerfile*" -type f -print
+          echo "Compose files found:"
+          find . -iname "compose.yaml" -o -iname "docker-compose.yml" -o -iname "docker-compose.yaml"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
