@@ -28,10 +28,12 @@ jobs:
         include:
           - component: backend
             context: ./backend
+            dockerfile: ./backend.dockerfile
             image: smescloud/nextnodepgsql-backend
 
           - component: frontend
             context: ./frontend
+            dockerfile: ./frontend.dockerfile
             image: smescloud/nextnodepgsql-frontend
 
     steps:
@@ -62,9 +64,10 @@ jobs:
             org.opencontainers.image.vendor=SMEsCloud
 
       - name: Build and push ${{ matrix.component }} image
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
