@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: smescloud/nextnodepgsql-frontend:4cbf7e4f83caf9be6332a1c49e7e25f1b20a9728
+          image: smescloud/nextnodepgsql-frontend:b6444404b0d229638d83f5516623036da4961b1b
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

@@ -12,7 +12,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: prisma-db-push
-          image: smescloud/nextnodepgsql-backend:4cbf7e4f83caf9be6332a1c49e7e25f1b20a9728
+          image: smescloud/nextnodepgsql-backend:b6444404b0d229638d83f5516623036da4961b1b
           imagePullPolicy: Always
           command:
             - /bin/sh
