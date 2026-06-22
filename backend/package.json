@@ -7,7 +7,7 @@
     "dev": "node index.js",
     "start": "node index.js",
     "db:push": "prisma db push",
-    "start:docker": "prisma db push && node index.js"
+    "start:docker": "node index.js"
   },
   "keywords": [],
   "author": "",
